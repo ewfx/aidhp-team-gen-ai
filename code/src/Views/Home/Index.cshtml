@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <h1>Customer Profile</h1>
+    <div>
+        <p>Name: <span id="customer-name">John Doe</span></p>
+        <p>Age: <span id="customer-age">30</span></p>
+        <p>Interests: <span id="customer-interests">Tech, Travel</span></p>
+        <p>Engagement Score: <span id="customer-engagement">80</span></p>
+        <button id="get-recommendations">Get Recommendations</button>
+    </div>
+
+    <h3>Recommendations</h3>
+    <div id="recommendations"></div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#get-recommendations').click(function () {
+                var userProfile = {
+                    name: 'John Doe',
+                    age: 30,
+                    interests: ['Tech', 'Travel'],
+                    purchaseHistory: 'Laptop, Camera',
+                    engagementScore: 80,
+                    sentimentScore: 0.8,
+                    socialMediaActivity: 'High'
+                };
+
+                $.ajax({
+                    url: '/Home/GetRecommendations',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(userProfile),
+                    success: function (data) {
+                        $('#recommendations').html('<p>' + data + '</p>');
+                    },
+                    error: function (error) {
+                        $('#recommendations').html('<p>Error fetching recommendations.</p>');
+                    }
+                });
+            });
+        });
+    </script>
+}
