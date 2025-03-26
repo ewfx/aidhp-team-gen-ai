@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Hyper_Personalization.props" />
+</Project>
